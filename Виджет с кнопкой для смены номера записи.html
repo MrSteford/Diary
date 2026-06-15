@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    width: 350px;
+    height: 120px;
+    background: transparent;
+    font-family: 'Share Tech Mono', monospace;
+    color: #00e5ff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .widget-box {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    border-radius: 4px;
+    padding: 16px 22px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    text-align: center;
+    min-width: 280px;
+  }
+  
+  .log-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 8px;
+    text-shadow: 0 0 6px rgba(0,0,0,0.9);
+  }
+  
+  .log-number {
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #ffd740;
+    text-shadow: 0 0 14px rgba(255,215,64,0.6), 0 0 3px #000;
+    margin-bottom: 10px;
+  }
+  
+  .change-btn {
+    background: rgba(0, 229, 255, 0.1);
+    border: 1px solid rgba(0, 229, 255, 0.5);
+    color: #00e5ff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 6px 18px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
+  }
+  
+  .change-btn:hover {
+    background: rgba(0, 229, 255, 0.25);
+    box-shadow: 0 0 15px rgba(0,229,255,0.3);
+  }
+  
+  .change-btn:active {
+    background: rgba(0, 229, 255, 0.4);
+  }
+  
+  #logInput {
+    background: rgba(0,0,0,0.7);
+    border: 1px solid #ffd740;
+    color: #ffd740;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+    width: 100px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    outline: none;
+    text-shadow: 0 0 6px rgba(255,215,64,0.5);
+  }
+  
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="widget-box">
+  <div class="log-label">LOG ENTRY</div>
+  
+  <!-- Режим отображения -->
+  <div id="displayMode">
+    <div class="log-number" id="logDisplay">#0001</div>
+    <button class="change-btn" onclick="showInput()">CHANGE LOG #</button>
+  </div>
+  
+  <!-- Режим ввода -->
+  <div id="inputMode" class="hidden">
+    <input type="text" id="logInput" placeholder="0001" maxlength="6" autofocus>
+    <br>
+    <button class="change-btn" onclick="saveLog()">✓ SAVE</button>
+    <button class="change-btn" onclick="cancelInput()" style="margin-left:8px;">✗ CANCEL</button>
+  </div>
+  
+  <div style="font-size:9px; margin-top:8px; opacity:0.5;">
+    LOCAL STORAGE ACTIVE
+  </div>
+</div>
+
+<script>
+const displayMode = document.getElementById('displayMode');
+const inputMode = document.getElementById('inputMode');
+const logDisplay = document.getElementById('logDisplay');
+const logInput = document.getElementById('logInput');
+
+// Загружаем сохранённое значение
+const savedLog = localStorage.getItem('poker_table_log_num') || '0001';
+logDisplay.textContent = '#' + savedLog;
+
+function showInput() {
+  const current = logDisplay.textContent.replace('#', '');
+  logInput.value = current;
+  displayMode.classList.add('hidden');
+  inputMode.classList.remove('hidden');
+  logInput.focus();
+  logInput.select();
+}
+
+function saveLog() {
+  let val = logInput.value.trim();
+  if (!val) val = '0001';
+  // Дополняем нулями до 4 знаков
+  val = val.padStart(4, '0');
+  
+  logDisplay.textContent = '#' + val;
+  localStorage.setItem('poker_table_log_num', val);
+  
+  inputMode.classList.add('hidden');
+  displayMode.classList.remove('hidden');
+  
+  console.log('%c[LOG ENTRY] %cНомер записи обновлён: %c#' + val,
+    'color:#00e5ff', 'color:#fff', 'color:#ffd740');
+}
+
+function cancelInput() {
+  inputMode.classList.add('hidden');
+  displayMode.classList.remove('hidden');
+}
+
+// Enter — сохранить, Escape — отмена
+logInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') saveLog();
+  if (e.key === 'Escape') cancelInput();
+});
+</script>
+</body>
+</html>

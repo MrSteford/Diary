@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  
+  * { margin: 0; padding: 0; }
+  body {
+    width: 1920px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    color: #00e5ff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 0 4px rgba(0,0,0,0.9);
+  }
+  
+  .log-scroll {
+    white-space: nowrap;
+    animation: scrollLog 40s linear infinite;
+    letter-spacing: 1px;
+    opacity: 0.85;
+  }
+  
+  @keyframes scrollLog {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  
+  .warn { color: #ffb74d; }
+  .err { color: #ff5252; }
+  .ok { color: #69f0ae; }
+</style>
+</head>
+<body>
+<div class="log-scroll">
+  [2026-06-15 15:00:00.001] <span class="ok">SYS</span> Kernel v5.19.7-pt loaded · 
+  [15:00:00.143] <span class="ok">INIT</span> Secure enclave initialized · 
+  [15:00:00.287] <span class="ok">CRYPTO</span> ECDH key exchange complete · 
+  [15:00:00.452] <span class="ok">BIO</span> Operator Steford authenticated · 
+  [15:00:00.598] <span class="warn">WARN</span> Memory buffer at 62% — threshold approaching · 
+  [15:00:01.103] <span class="ok">NET</span> Tunnel established to relay-7.rda.internal · 
+  [15:00:01.447] <span class="ok">DB</span> Connection pool: 8/16 active · 
+  [15:00:01.891] <span class="warn">WARN</span> Thermal sensor #4 reading above nominal · 
+  [15:00:02.334] <span class="ok">LOG</span> Entry #0001 opened — Project Poker Table · 
+  [15:00:02.776] <span class="err">ERR</span> Failed handshake with backup node PT-BETA-02 (timeout) · 
+  [15:00:03.119] <span class="ok">RETRY</span> Reattempting in 15s... · 
+  [15:00:03.562] <span class="ok">SYS</span> Healthcheck passed — 14/14 services nominal · 
+  [15:00:04.005] <span class="ok">AUDIO</span> Input stream locked at 48kHz/24bit · 
+  [15:00:04.448] <span class="ok">VIDEO</span> Capture resolution: 1920x1080@60fps · 
+  [15:00:04.891] <span class="ok">ENCRYPT</span> AES-256-GCM cipher active on all channels · 
+  [15:00:05.334] <span class="warn">WARN</span> CPU spike detected — process 'poker_table_ai' PID 8842 · 
+  [15:00:05.776] <span class="ok">PROC</span> Thread pool scaled to 12 workers · 
+  [15:00:06.119] <span class="ok">STORAGE</span> Write buffer flushed — 2.3MB pending · 
+  [15:00:06.562] <span class="ok">SYS</span> Uptime: 15m 06s · 
+  [15:00:07.005] <span class="ok">MONITOR</span> All telemetry streams nominal · 
+  [15:00:07.448] <span class="err">ERR</span> Unauthorized ping from 192.168.7.253 — blocked · 
+  [15:00:07.891] <span class="ok">FIREWALL</span> Rule #47 applied · 
+  [15:00:08.334] <span class="ok">SYS</span> Log rotation scheduled at 16:00 UTC+3 ·
+</div>
+</body>
+</html>
